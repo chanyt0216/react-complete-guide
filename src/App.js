@@ -17,10 +17,10 @@ class App extends Component {
       return p.id === id;
     });
     const person = { ...this.state.persons[personIndex] };
-    pseron.name = event.target.name;
+    person.name = event.target.name;
 
     const persons = [...this.state.persons];
-    pserons[personIndex] = person;
+    persons[personIndex] = person;
 
     this.setState({
       persons: persons
