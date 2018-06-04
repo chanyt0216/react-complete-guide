@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // stateless component
 // const withClass = (WrappedComponent, className) => {
@@ -11,15 +11,19 @@ import React, { Component } from 'react';
 
 // stateful component
 const withClass = (WrappedComponent, className) => {
-  return class extends Component {
+  const WithClass = class extends Component {
     render() {
       return (
         <div className={className}>
-          <WrappedComponent {...this.props} />
+          <WrappedComponent ref={this.props.forwardedRef} {...this.props} />
         </div>
       );
     }
   };
+
+  return React.forwardRef((props, ref) => {
+    return <WithClass {...props} forwardedRef={ref} />;
+  });
 };
 
 export default withClass;
