@@ -1,32 +1,33 @@
-import React, { PureComponent } from 'react';
-import classes from './App.css';
-import Persons from '../components/Persons/Persons';
-import Cockpit from '../components/Cockpit/Cockpit';
-import Aux from '../hoc/Aux';
-import withClass from '../hoc/WithClass';
+import React, { PureComponent } from "react";
+import classes from "./App.css";
+import Persons from "../components/Persons/Persons";
+import Cockpit from "../components/Cockpit/Cockpit";
+import Aux from "../hoc/Aux";
+import withClass from "../hoc/WithClass";
 
 class App extends PureComponent {
   constructor(props) {
     super(props);
-    console.log('[App.js] Inside Constructor', props);
+    console.log("[App.js] Inside Constructor", props);
     this.state = {
       persons: [
-        { id: 'asfa1', name: 'Max', age: 28 },
-        { id: 'vasdf1', name: 'Manu', age: 29 },
-        { id: 'asdf11', name: 'Stephanie', age: 26 }
+        { id: "asfa1", name: "Max", age: 28 },
+        { id: "vasdf1", name: "Manu", age: 29 },
+        { id: "asdf11", name: "Stephanie", age: 26 }
       ],
-      otherState: 'some other value',
-      showPersons: false, 
-      toggleClicked: 0
+      otherState: "some other value",
+      showPersons: false,
+      toggleClicked: 0,
+      authenticated: false
     };
   }
 
   componentWillMount() {
-    console.log('[App.js] Inside componentWillMount');
+    console.log("[App.js] Inside componentWillMount");
   }
 
   componentDidMount() {
-    console.log('[App.js] Inside componentDidMount');
+    console.log("[App.js] Inside componentDidMount");
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -44,14 +45,14 @@ class App extends PureComponent {
 
   componentWillUpdate(nextProps, nextState) {
     console.log(
-      '[UPDATE App.js] Inside componentWillUpdate',
+      "[UPDATE App.js] Inside componentWillUpdate",
       nextProps,
       nextState
     );
   }
 
   componentDidUpdate() {
-    console.log('[UPDATE App.js] Inside componentDidUpdate');
+    console.log("[UPDATE App.js] Inside componentDidUpdate");
   }
 
   nameChangedHandler = (event, id) => {
@@ -90,8 +91,12 @@ class App extends PureComponent {
     });
   };
 
+  loginHandler = () => {
+    this.setState({ authenticated: true });
+  };
+
   render() {
-    console.log('[App.js] Inside render()');
+    console.log("[App.js] Inside render()");
     let persons = null;
 
     if (this.state.showPersons) {
@@ -100,6 +105,7 @@ class App extends PureComponent {
           persons={this.state.persons}
           clicked={this.deletePersonHandler}
           changed={this.nameChangedHandler}
+          isAuthenticated={this.state.authenticated}
         />
       );
     }
@@ -118,6 +124,7 @@ class App extends PureComponent {
           showPersons={this.state.showPersons}
           persons={this.state.persons}
           clicked={this.togglePersonsHandler}
+          login={this.loginHandler}
         />
         {persons}
       </Aux>
